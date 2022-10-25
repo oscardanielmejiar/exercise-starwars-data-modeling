@@ -16,7 +16,7 @@ class Person(Base):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    person_name = Column(String(250), nullable=False)
+    person_name = Column(String(250), unique=True)
     eye_color = Column(String(250))
     hair_color = Column(String(250))
     skin_color = Column(String(250))
@@ -28,7 +28,7 @@ class Planet(Base):
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    planet_name = Column(String(250))
+    planet_name = Column(String(250),unique=True)
     diameter = Column(String(250))
     climate = Column(String(250))
     terrain = Column(String(250))
