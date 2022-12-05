@@ -11,10 +11,17 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
+class User(Base):
+    __tablename__ = 'User'
+    id = Column(Integer, primary_key=True)
+    username = Column(String(250), nullable=False)
+    firstname = Column(String(250), nullable=False)
+    lastname = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
+    user_id = Column(ForeignKey('Favorites.id'))
+
 class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
+    __tablename__ = 'Person'
     id = Column(Integer, primary_key=True)
     person_name = Column(String(250), unique=True)
     eye_color = Column(String(250))
@@ -22,24 +29,22 @@ class Person(Base):
     skin_color = Column(String(250))
     birth_year = Column(String(250))
     gender = Column(String(250))
+    planets_id = Column(ForeignKey('Planets.id'))
+    vehicles_id = Column(ForeignKey('Vehicles.id'))
 
-class Planet(Base):
-    __tablename__ = 'planets'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class Planets(Base):
+    __tablename__ = 'Planets'
     id = Column(Integer, primary_key=True)
     planet_name = Column(String(250),unique=True)
     diameter = Column(String(250))
     climate = Column(String(250))
     terrain = Column(String(250))
     population = Column(String(250))
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    person_id = Column(Integer, ForeignKey('Person.id'))
 
-class Vehicle(Base):
-    __tablename__ = 'vehicle'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+
+class Vehicles(Base):
+    __tablename__ = 'Vehicles'
     id = Column(Integer, primary_key=True)
     vehicle_name = Column(String(250))
     model = Column(String(250))
@@ -48,7 +53,13 @@ class Vehicle(Base):
     cost_in_credits = Column(String(250))
     vehicle_class = Column(String(250))
     person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+
+class Favorites(Base):
+    __tablename__ = 'Favorites'
+    id = Column(Integer, primary_key=True)
+    favorite_name = Column(String(250), nullable=False)
+    user_id = Column(ForeignKey('User.id'))
+    person_id = Column(ForeignKey('Person.id'))
 
     def to_dict(self):
         return {}
