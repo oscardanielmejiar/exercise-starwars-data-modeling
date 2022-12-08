@@ -4,7 +4,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
-from eralchemy import render_er
+from eralchemy2 import render_er
 
 #python src/models.py to create
 # a new diagram showing changes
